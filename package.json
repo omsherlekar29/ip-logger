@@ -1,0 +1,16 @@
+{
+  "name": "ip-logger",
+  "version": "1.0.0",
+  "description": "Cybersecurity research tool",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "useragent": "^2.3.0",
+    "uuid": "^14.0.2"
+  }
+}

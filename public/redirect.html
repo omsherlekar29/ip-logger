@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: #667eea;
+            width: 0%;
+            animation: progress 2s ease-in-out forwards;
+        }
+        @keyframes progress { to { width: 100%; } }
+        .destination {
+            color: #999;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .ad-placeholder {
+            margin-top: 40px;
+            padding: 60px;
+            background: white;
+            border-radius: 10px;
+            border: 2px dashed #ddd;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <h1>Redirecting you shortly...</h1>
+        <p>Please wait while we prepare your destination</p>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        
+        <div class="destination" id="destination">Loading...</div>
+        
+        <div class="ad-placeholder">
+            Advertisement Space
+        </div>
+    </div>
+
+    <!-- Multiple tracking methods -->
+    <img id="tracker1" style="display:none;" width="1" height="1">
+    <img id="tracker2" style="display:none;" width="1" height="1">
+
+    <script>
+        const pathParts = window.location.pathname.split('/');
+        const trackId = pathParts[pathParts.length - 1];
+        
+        // Get destination URL
+        fetch(`/api/target/${trackId}`)
+            .then(r => r.json())
+            .then(data => {
+                const target = data.target || 'https://google.com';
+                document.getElementById('destination').textContent = 
+                    'Destination: ' + new URL(target).hostname;
+                
+                // Load tracking pixels
+                document.getElementById('tracker1').src = `/track/${trackId}-img`;
+                
+                // Advanced fingerprinting
+                collectAdvancedFingerprint(trackId);
+                
+                // Redirect after tracking completes
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 2500);
+            });
+
+        async function collectAdvancedFingerprint(trackId) {
+            const data = {
+                trackId: trackId,
+                timestamp: Date.now(),
+                
+                // Screen & Display
+                screen: {
+                    width: screen.width,
+                    height: screen.height,
+                    availWidth: screen.availWidth,
+                    availHeight: screen.availHeight,
+                    colorDepth: screen.colorDepth,
+                    pixelDepth: screen.pixelDepth
+                },
+                
+                // Window size
+                window: {
+                    innerWidth: window.innerWidth,
+                    innerHeight: window.innerHeight,
+                    outerWidth: window.outerWidth,
+                    outerHeight: window.outerHeight,
+                    devicePixelRatio: window.devicePixelRatio
+                },
+                
+                // Canvas fingerprint
+                canvas: getCanvasFingerprint(),
+                
+                // WebGL fingerprint
+                webgl: getWebGLFingerprint(),
+                
+                // Fonts
+                fonts: getFontList(),
+                
+                // Touch support
+                touch: {
+                    maxTouchPoints: navigator.maxTouchPoints,
+                    touchEvent: 'ontouchstart' in window,
+                    touchStart: 'ontouchstart' in document.documentElement
+                },
+                
+                // Battery (if available)
+                battery: await getBatteryInfo(),
+                
+                // Network
+                network: {
+                    connection: navigator.connection ? {
+                        effectiveType: navigator.connection.effectiveType,
+                        downlink: navigator.connection.downlink,
+                        rtt: navigator.connection.rtt,
+                        saveData: navigator.connection.saveData
+                    } : null,
+                    onLine: navigator.onLine
+                },
+                
+                // Storage
+                storage: {
+                    localStorage: !!window.localStorage,
+                    sessionStorage: !!window.sessionStorage,
+                    indexedDB: !!window.indexedDB
+                },
+                
+                // Media
+                media: {
+                    webRTC: !!window.RTCPeerConnection,
+                    getUserMedia: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
+                }
+            };
+            
+            // Send via beacon (works even if page unloads)
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon('/track/' + trackId + '-data', 
+                    JSON.stringify(data));
+            } else {
+                fetch('/track/' + trackId + '-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                    keepalive: true
+                }).catch(() => {});
+            }
+        }
+
+        function getCanvasFingerprint() {
+            try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 200;
+                canvas.height = 50;
+                
+                // Text with different styles
+                ctx.textBaseline = 'top';
+                ctx.font = '14px Arial';
+                ctx.fillStyle = '#f60';
+                ctx.fillRect(0, 0, 200, 50);
+                ctx.fillStyle = '#069';
+                ctx.fillText('Canvas fingerprint test 🎨', 2, 15);
+                ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+                ctx.fillText('Multiple fonts test', 4, 35);
+                
+                return canvas.toDataURL().slice(-50); // Last 50 chars of base64
+            } catch (e) {
+                return 'not supported';
+            }
+        }
+
+        function getWebGLFingerprint() {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (!gl) return null;
+                
+                const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                return {
+                    vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+                    renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL),
+                    version: gl.getParameter(gl.VERSION),
+                    shadingLanguageVersion: gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
+                    vendorStandard: gl.getParameter(gl.VENDOR)
+                };
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function getFontList() {
+            const fonts = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana', 
+                          'Helvetica', 'Tahoma', 'Trebuchet MS', 'Impact'];
+            const available = [];
+            const testString = 'mmmmmmmmmwwwwwww';
+            const testSize = '72px';
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            fonts.forEach(font => {
+                ctx.font = testSize + ' ' + font;
+                const width1 = ctx.measureText(testString).width;
+                ctx.font = testSize + ' monospace';
+                const width2 = ctx.measureText(testString).width;
+                if (width1 !== width2) available.push(font);
+            });
+            
+            return available;
+        }
+
+        async function getBatteryInfo() {
+            if ('getBattery' in navigator) {
+                try {
+                    const battery = await navigator.getBattery();
+                    return {
+                        level: battery.level,
+                        charging: battery.charging,
+                        chargingTime: battery.chargingTime,
+                        dischargingTime: battery.dischargingTime
+                    };
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>

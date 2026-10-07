@@ -1,0 +1,112 @@
+[
+  {
+    "id": "e36549da-f776-47e1-980b-d6a764d5ba9d",
+    "trackId": "landing-page",
+    "timestamp": "2026-10-07T13:50:06.972Z",
+    "ip": {
+      "address": "::1",
+      "version": "IPv6"
+    },
+    "geolocation": {
+      "status": "private",
+      "note": "Local/private IP - no geolocation available",
+      "ip": "::1"
+    },
+    "device": {
+      "browser": {
+        "family": "Chrome",
+        "version": "136.0.0",
+        "major": "136",
+        "minor": "0",
+        "patch": "0"
+      },
+      "os": {
+        "family": "Windows",
+        "version": "10.0.0",
+        "major": "10"
+      },
+      "device": {
+        "family": "Other",
+        "type": "desktop"
+      }
+    },
+    "network": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+      "acceptLanguage": "en-US,en;q=0.9,mr;q=0.8",
+      "acceptEncoding": "gzip, deflate, br, zstd",
+      "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+      "connection": "keep-alive",
+      "secFetchDest": "image",
+      "secFetchMode": "no-cors",
+      "secFetchSite": "same-origin",
+      "secChUa": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"",
+      "secChUaMobile": "?0",
+      "secChUaPlatform": "\"Windows\"",
+      "referrer": "http://localhost:3000/"
+    },
+    "server": {
+      "protocol": "http",
+      "secure": false,
+      "httpVersion": "1.1",
+      "method": "GET"
+    },
+    "timing": {
+      "responseTime": 108
+    }
+  },
+  {
+    "id": "5cf24655-f371-4c40-9bfe-0e9a1f7de849",
+    "trackId": "ay0ry1-img",
+    "timestamp": "2026-10-07T13:51:25.625Z",
+    "ip": {
+      "address": "::1",
+      "version": "IPv6"
+    },
+    "geolocation": {
+      "status": "private",
+      "note": "Local/private IP - no geolocation available",
+      "ip": "::1"
+    },
+    "device": {
+      "browser": {
+        "family": "Chrome",
+        "version": "136.0.0",
+        "major": "136",
+        "minor": "0",
+        "patch": "0"
+      },
+      "os": {
+        "family": "Windows",
+        "version": "10.0.0",
+        "major": "10"
+      },
+      "device": {
+        "family": "Other",
+        "type": "desktop"
+      }
+    },
+    "network": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+      "acceptLanguage": "en-US,en;q=0.9,mr;q=0.8",
+      "acceptEncoding": "gzip, deflate, br, zstd",
+      "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+      "connection": "keep-alive",
+      "secFetchDest": "image",
+      "secFetchMode": "no-cors",
+      "secFetchSite": "same-origin",
+      "secChUa": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"",
+      "secChUaMobile": "?0",
+      "secChUaPlatform": "\"Windows\"",
+      "referrer": "http://localhost:3000/r/ay0ry1"
+    },
+    "server": {
+      "protocol": "http",
+      "secure": false,
+      "httpVersion": "1.1",
+      "method": "GET"
+    },
+    "timing": {
+      "responseTime": 22
+    }
+  }
+]
